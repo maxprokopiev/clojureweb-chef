@@ -1,0 +1,11 @@
+#!/bin/sh
+# Make sure local dependencies are met.
+
+cd "$(dirname $0)"/..
+
+rm -f .bundle/config
+
+bundle check --path .bundle > /dev/null 2>&1 ||
+  bundle install --binstubs=bin --path=.bundle
+
+bundle exec librarian-chef install

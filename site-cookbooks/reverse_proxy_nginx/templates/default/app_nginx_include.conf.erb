@@ -1,0 +1,46 @@
+##
+# Nginx config
+# Managed by Chef - Local Changes will be Nuked from Orbit (just to be sure)
+##
+
+server_name_in_redirect off;
+
+root <%= @application_current_path %>/resources/public;
+
+access_log <%= @application_shared_path %>/log/access.log main;
+error_log <%= @application_shared_path %>/log/error.log;
+
+include /etc/nginx/helpers/expires.conf;
+include /etc/nginx/helpers/maintenance.conf;
+include /etc/nginx/helpers/invalid_requests.conf;
+include /etc/nginx/helpers/headers.conf;
+
+try_files $uri/index.html $uri.html $uri @app;
+
+location @app {
+  proxy_buffer_size 16k;
+  proxy_buffers 8 16k;
+  proxy_busy_buffers_size 32k;
+  proxy_redirect off;
+
+  proxy_pass http://localhost:5000;
+  proxy_set_header        X-Real-IP $remote_addr;
+  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header        Host $http_host;
+}
+
+error_page 500 502 503 504 /500.html;
+error_page 404 /404.html;
+
+location = /500.html {
+  root <%= @application_current_path %>/resources/public;
+}
+
+location = /404.html {
+  root <%= @application_current_path %>/resources/public;
+}
+
+location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    try_files $uri @app;
+    expires 0d;
+}

@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'java'
+
+cookbook 'leiningen',
+  git: 'git@github.com:juggler/chef-leiningen.git'
+
+cookbook 'flatstack',
+  git: 'git://github.com/fs/chef-rails-cookbooks.git'
+
+cookbook 'nginx',
+  git: 'git://github.com/jsierles/chef_cookbooks.git',
+  path: 'nginx'
+
+cookbook 'mongodb',
+  git: 'git://github.com/edelight/chef-mongodb.git'

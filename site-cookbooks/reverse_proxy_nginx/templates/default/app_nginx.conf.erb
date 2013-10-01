@@ -1,0 +1,10 @@
+##
+# Nginx config
+# Managed by Chef - Local Changes will be Nuked from Orbit (just to be sure)
+##
+
+server {
+  listen 80;
+  server_name <%= @application_domain %> _;
+  include /etc/nginx/sites-include/<%= @application_name %>.conf;
+}
