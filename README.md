@@ -51,3 +51,7 @@ Check them out for default attributes.
 
 * [Max Prokopiev](http://maxprokopiev.com)
 * Based on [rails3-base-chef](https://github.com/fs/rails3-base-chef) template.
+
+# License
+
+MIT
